@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', function(){
    
 
     const getTimeRemaining = () => {
-      
+
       let dateStop = new Date(deadline).getTime();
       let dateNow = new Date().getTime();
       let timeRemaining = ( dateStop - dateNow ) / 1000;
@@ -67,3 +67,77 @@ window.addEventListener('DOMContentLoaded', function(){
  
 });
 
+const toggleMenu = () => {
+
+  const btnMenu = document.querySelector('.menu');
+  const menu = document.querySelector('menu');
+  const closeBtn = document.querySelector('.close-btn');
+  const menuItems = menu.querySelectorAll('ul > li');
+
+  const handlerMenu = () => {
+
+    menu.classList.toggle('active-menu');
+
+  };
+
+  btnMenu.addEventListener( 'click', handlerMenu ); 
+  closeBtn.addEventListener( 'click', handlerMenu );
+  menuItems.forEach( (elem) => elem.addEventListener('click', handlerMenu) )
+
+};
+
+toggleMenu();
+
+//popup
+
+
+const show = (speed)=> {
+
+    let ID = setInterval(function() {
+    if (popup.style.opacity >= 1 ) {
+clearInterval(ID);
+    }
+    popup.style.opacity += 0.1;
+    }, speed);
+}
+
+const togglePopup = () => {
+
+  const popup = document.querySelector('.popup');
+  const popupBtn = document.querySelectorAll('.popup-btn');
+  const popupClose = document.querySelector('.popup-close');
+  const popupContent = document.querySelector('.popup-content');
+  let count = 0;
+  let animate;
+
+  let showPopup = function() {
+
+    animate = requestAnimationFrame(showPopup);
+    count++
+
+  if( count < 50 ){
+
+    popupContent.style.top = count + 'px';
+    popup.style.display = 'block';
+  } else {
+    cancelAnimationFrame(animate);
+  }  
+  if (screen.width < 768 ) {
+    cancelAnimationFrame(animate);
+  } else {
+    animate = requestAnimationFrame(showPopup);
+  }
+}
+
+  popupBtn.forEach((elem) => {
+    elem.addEventListener('click', () => {animate = requestAnimationFrame(showPopup)});
+  });
+
+  popupClose.addEventListener('click', () => {
+    
+    popup.style.display = 'none';
+  })
+
+};
+
+togglePopup();
