@@ -23,7 +23,7 @@ const hourFormat = (n) => {
 
 }
 
-const newYearCount = (data) => {
+const newYearCount = () => {
       
     let dateNY = new Date( '1 january 2021' ).getTime();
     let dateNow = new Date().getTime();
