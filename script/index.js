@@ -115,15 +115,17 @@ const togglePopup = () => {
     animate = requestAnimationFrame(showPopup);
     count++
 
-  if( count < 50 ){
+  if( count < 100 ){
+console.log(count);
 
-    popupContent.style.top = count + 'px';
+    popupContent.style.marginTop = count + 'px';
     popup.style.display = 'block';
   } else {
     cancelAnimationFrame(animate);
   }  
   if (window.matchMedia("(max-width: 768px)").matches) {
     cancelAnimationFrame(animate);
+    
   } else {
     animate = requestAnimationFrame(showPopup);
   }
