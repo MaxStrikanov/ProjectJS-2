@@ -65,26 +65,18 @@ window.addEventListener('DOMContentLoaded', function(){
 
 //меню
   const toggleMenu = () => {
-
-    const btnMenu = document.querySelector('.menu');
-    const menu = document.querySelector('menu');
-
-    const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
-    };
-
-    btnMenu.addEventListener( 'click', () => {
-
-      if (event.target.closest('.menu')) handlerMenu();
-       
-    }); 
-
-    menu.addEventListener('click', () => {
     
-      if (!event.target.matches('a')) return;
-      handlerMenu();
+    const menu = document.querySelector('menu');
+    
+    document.addEventListener( 'click', () => {
 
-    })
+      let handleMenu = menu.classList.toggle('active-menu');
+
+      if (event.target.closest('.menu')) handleMenu;
+      if (!event.target.closest('a')) return;
+      handleMenu;
+    }); 
+    
   };
 
   toggleMenu();
