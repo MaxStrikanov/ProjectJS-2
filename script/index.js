@@ -81,20 +81,16 @@ window.addEventListener('DOMContentLoaded', function(){
       let target = e.target;
       target = target.closest('.menu')
 
-      if (target){
-        handlerMenu();
-      } 
-
-      
+        if (target) handlerMenu();
+       
     }); 
 
     menu.addEventListener('click', (e) => {
 
       let target = e.target;
     
-        if (target.tagName !== 'A'){
-          return;
-        }
+        if (target.tagName !== 'A') return;
+        
         handlerMenu();
 
     })
