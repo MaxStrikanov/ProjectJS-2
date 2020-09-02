@@ -76,22 +76,16 @@ window.addEventListener('DOMContentLoaded', function(){
       menu.classList.toggle('active-menu');
     };
 
-    btnMenu.addEventListener( 'click', (e) => {
+    btnMenu.addEventListener( 'click', () => {
 
-      let target = e.target;
-      target = target.closest('.menu')
-
-        if (target) handlerMenu();
+      if (event.target.closest('.menu')) handlerMenu();
        
     }); 
 
-    menu.addEventListener('click', (e) => {
-
-      let target = e.target;
+    menu.addEventListener('click', () => {
     
-        if (target.tagName !== 'A') return;
-        
-        handlerMenu();
+      if (!event.target.matches('a')) return;
+      handlerMenu();
 
     })
   };
