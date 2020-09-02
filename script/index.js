@@ -122,7 +122,7 @@ const togglePopup = () => {
   } else {
     cancelAnimationFrame(animate);
   }  
-  if (screen.width < 768 ) {
+  if (window.matchMedia("(max-width: 768px)").matches) {
     cancelAnimationFrame(animate);
   } else {
     animate = requestAnimationFrame(showPopup);
