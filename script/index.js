@@ -198,8 +198,14 @@ toggleMenu();
     let sliderDot = document.createElement('li')
     sliderDot.className = 'dot';
     dotsGroup.appendChild(sliderDot)
-
+     
   }  
+  const addClass = () => {
+    
+    let addActiveDot = document.querySelectorAll('.dot')[0];
+        addActiveDot.classList.add('dot-active');
+  }
+  addClass()
   
 }
 addDots();
@@ -299,5 +305,4 @@ addDots();
 
  slider(1500);
  
-
 });
