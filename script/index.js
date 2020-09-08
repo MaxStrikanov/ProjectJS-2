@@ -270,7 +270,9 @@ addDots();
 
      let target = e.target;
 
-     if (!target.matches('.portfolio-btn, .dot'))
+     if (!target.matches('.portfolio-btn, .dot')){
+       return;
+     }
 
      prevSlide(slide, currentSlider, 'portfolio-item-active');
      prevSlide(dot, currentSlider, 'dot-active');
