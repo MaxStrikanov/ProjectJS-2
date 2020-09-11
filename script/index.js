@@ -270,7 +270,9 @@ addDots();
 
      let target = e.target;
 
-     if (!target.matches('.portfolio-btn, .dot'))
+     if (!target.matches('.portfolio-btn, .dot')){
+       return;
+     }
 
      prevSlide(slide, currentSlider, 'portfolio-item-active');
      prevSlide(dot, currentSlider, 'dot-active');
@@ -304,5 +306,51 @@ addDots();
  };
 
  slider(1500);
- 
+
+//смена картинок
+ const changeImage = (e) => {
+
+
+  let target = e.target
+  const img = target.closest('.command__photo');
+
+  if ( img ) {
+
+      if (img.dataset.img) {
+      [img.src, img.dataset.img] = [img.dataset.img, img.src];
+      }
+  }  
+};
+
+document.addEventListener('mouseover', changeImage);
+document.addEventListener('mouseout', changeImage);
+
+
+  const calcValid = () => {
+
+  const calcBlock = document.querySelector('.calc-block');
+
+  calcBlock.addEventListener('input', (e) => {
+
+    let target = e.target;
+    let calcInput = target.closest('.calc-item');
+    let text = calcInput.value;
+    let reg = /\D/g;
+
+      if (reg.test(text)){
+        calcInput.style.border = '1px solid red';
+        text = text.replace(reg, '');
+        calcInput.value = text; 
+      } else {
+        calcInput.style.border = '';
+      }
+
+  }
+    
+  )};
+  
+calcValid();
+
 });
+
+
