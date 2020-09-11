@@ -316,9 +316,9 @@ addDots();
 
   if ( img ) {
 
-      if (img.dataset.img) {
-      [img.src, img.dataset.img] = [img.dataset.img, img.src];
-      }
+    if (img.dataset.img) {
+    [img.src, img.dataset.img] = [img.dataset.img, img.src];
+    }
   }  
 };
 
@@ -328,28 +328,104 @@ document.addEventListener('mouseout', changeImage);
 
   const calcValid = () => {
 
-  const calcBlock = document.querySelector('.calc-block');
+    const calcBlock = document.querySelector('.calc-block');
 
-  calcBlock.addEventListener('input', (e) => {
+    calcBlock.addEventListener('input', (e) => {
 
-    let target = e.target;
-    let calcInput = target.closest('.calc-item');
-    let text = calcInput.value;
-    let reg = /\D/g;
+      let target = e.target;
+      let calcInput = target.closest('.calc-item [type=text]');
+      let text = calcInput.value;
+      let reg = /\D/g;
 
       if (reg.test(text)){
+
         calcInput.style.border = '1px solid red';
         text = text.replace(reg, '');
         calcInput.value = text; 
-      } else {
-        calcInput.style.border = '';
-      }
 
-  }
+      } else {
+
+        calcInput.style.border = '';
+
+      }
+    }
     
   )};
-  
-calcValid();
+
+//calcValid();
+
+//калькулятор
+  const calc = (price = 100) => {
+    const calcBlock = document.querySelector('.calc-block');
+    const calcType = document.querySelector('.calc-type');
+    const calcSquare = document.querySelector('.calc-square');
+    const calcCount = document.querySelector('.calc-count');
+    const calcDay = document.querySelector('.calc-day');
+    const totalValue = document.getElementById('total');
+
+    
+    const countSum = () => {
+
+      let total = 0;
+      const time = 5000;
+      const step = 20;
+      let n = 0;
+      let t = Math.round( time / (total / step) );
+      let countValue = 1;
+      let dayValue = 1;
+      let typeValue = calcType.options[calcType.selectedIndex].value;
+      let squareValue = +calcSquare.value;
+
+      if(calcCount.value > 1){
+        countValue += (calcCount.value  - 1) / 10;
+      }
+
+      if(calcDay.value && calcDay.value < 5){
+        dayValue *= 2
+      } else if (calcDay.value && calcDay.value < 10){
+        dayValue *= 1.5
+      }
+
+      if(typeValue && squareValue){
+
+        let interval = setInterval(() => {
+          n = n + step;
+          if (n == total) {
+            clearInterval(interval)
+          }
+          totalValue.textContent = n;
+        }, t)
+        total = price * typeValue * squareValue * countValue * dayValue;
+      }
+      
+     totalValue.textContent = total;
+
+      
+      
+    };
+
+    calcBlock.addEventListener('change', (e) => {
+      let target = e.target;
+
+      // if(target.matches('.calc-type') || target.matches('.calc-square') ||
+      //   target.matches('.calc-count') || target.matches('.calc-day')){
+
+      //   }
+
+      // if(target === calcType || target === calcSquare ||
+      //   target === calcCount || target === calcDay){
+      //   countSum()
+      // }
+
+      if(target.matches('select') || target.matches('input')){
+          countSum()
+        }
+    })
+
+    
+
+  }
+calc(100);
 
 });
 
