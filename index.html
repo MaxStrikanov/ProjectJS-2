@@ -8,6 +8,7 @@
 	<title>Услуги по 3D моделированию</title>
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/style.min.css">
+	<link rel="stylesheet" href="./css/preloader.css">
 	<link rel="apple-touch-icon" sizes="180x180" href="./images/favicon/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="./images/favicon/favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="./images/favicon/favicon-16x16.png">
@@ -70,13 +71,13 @@
 		<div class="main-form-input container">
 			<div class="row">
 				<div class="col-12 col-lg-4">
-					<input type="text" class="form-name" id="form1-name" name="user_name" placeholder="Ваше имя" required>
+					<input type="text" class="form-name" id="form1-name" name="user_name" placeholder="Ваше имя" >
 				</div>
 				<div class="col-12 col-lg-4">
 					<input type="email" class="form-email" id="form1-email" name="user_email" placeholder="E-mail">
 				</div>
 				<div class="col-12 col-lg-4">
-					<input type="tel" class="form-phone" id="form1-phone" name="user_phone" placeholder="Номер телефона" required>
+					<input type="tel" class="form-phone" id="form1-phone" name="user_phone" placeholder="Номер телефона" >
 				</div>
 			</div>
 		</div>
@@ -409,6 +410,27 @@
 		</div>
 	</div>
 </div>
+
+<div class="preloader">
+	<svg class="filter" version="1.1">
+		<defs>
+		  <filter id="gooeyness">
+			<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+			<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="gooeyness" />
+			<feComposite in="SourceGraphic" in2="gooeyness" operator="atop" />
+		  </filter>
+		</defs>
+	  </svg>
+	<div class="points">
+	  <div class="point mainDot"></div>
+	  <div class="point"></div>
+	  <div class="point"></div>
+	  <div class="point"></div>
+	  <div class="point"></div>
+	</div>
+</div>
 <script src="script/index.js"></script>
+<script src="script/validator.js"></script>
+	
 </body>
 </html>
