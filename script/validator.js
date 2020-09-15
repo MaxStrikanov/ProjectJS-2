@@ -6,11 +6,13 @@ class Validator {
         this.elementsForm = [...this.form.elements].filter(item => {
           return item.tagName.toLowerCase() !== 'button' &&
           item.type !== 'button';
-        })
+        });
+        this.error = new Set();
     }
 
     init() {
       this.applyStyle();
+      this.setPattern()
       this.elementsForm.forEach((elem) => {
         elem.addEventListener('change', this.chekIt.bind(this))
       });
@@ -24,14 +26,19 @@ class Validator {
       const target = event.target;
       if (this.isValid(target)){
         this.showSuccess(target);
+        this.error.delete(target)
       } else {
         this.showError(target);
+        this.error.add(target);
       }
     }
 
     showError(elem) {
       elem.classList.remove('success');
       elem.classList.add('error');
+      if (elem.nextElementSibling.classList.contains('validator-error')){
+        return
+      }
       const errorDiv = document.createElement('div');
       errorDiv.textContent = 'Ошибка в этом поле';
       errorDiv.classList.add('validator-error');
@@ -62,6 +69,12 @@ class Validator {
       document.head.appendChild(style);
     }
 
+    setPattern() {
+      this.pattern.phone = /^$/;
+
+      this.pattern.mall = /^$/;
+    }
+
 }
 
 
@@ -69,10 +82,3 @@ class Validator {
 
 
 
-const valid = new Validator({
-    selector: '#form1',
-    pattern: {},
-    method: {}
-});
-
-valid.init();
