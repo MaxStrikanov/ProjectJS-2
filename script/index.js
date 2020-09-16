@@ -451,75 +451,177 @@ calc(100);
     const form = document.getElementById('form1');
     const formFooter = document.getElementById('form2');
     const formPopup = document.getElementById('form3');
+    const btnSubmit = document.querySelectorAll('.form-btn');
     const statusMessage = document.createElement('div');
     const preloader = document.querySelector('.preloader');
-    statusMessage.textContent = 'Тут будет сообщение!'
+    const formName = document.getElementById('form1-name');
+    const formPhone = document.getElementById('form1-phone');
+    const inputMsg = document.getElementById('form2-message');
+    const inputName = document.getElementById('form2-name');
+    const formFooterPhone = document.getElementById('form2-phone'); 
     statusMessage.style.cssText = 'font-size: 20px; color: #fff;';
     
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      form.appendChild(statusMessage);
-      preloader.style.display = 'block';
-      statusMessage.appendChild(preloader)
-      const formData = new FormData(form);
-      const elemForm = [];
-  
-      let body = {};
+    //только кириллица
+    formName.addEventListener('input', () => {
 
-      formData.forEach((val, key) => {    
-        body[key] = val;
-      });
-      postData(body, () => {
-        statusMessage.textContent = successMessage;
-      }, () => {
-        statusMessage.textContent = errorMessage;
-      });
-      for( const elem of form.elements){
-        if (elem.tagName.toLowerCase() !== 'button' && 
-        elem.type !== 'button'){
-          elemForm.push(elem);
-        }
+      let textName = formName.value;
+      const patternName = /^[a-zA-Z0-9\s]+$/i;
+
+      if (patternName.test(textName)){
+        textName = textName.replace(patternName, '');
+        formName.style.border = '2px solid red';
+        formName.value = textName; 
+      } else {
+        
+        formName.style.border = '';
+      
       }
-      console.log(elemForm);
+    });
+    inputMsg.addEventListener('input', () => {
 
-      const patternPhone = /\d+$/;
-      const patternName = /^[а-яА-Я]/;
+    let textName = inputMsg.value;
+    const patternName = /^[a-zA-Z0-9\s]+$/i;
+
+    if (patternName.test(textName)){
+      textName = textName.replace(patternName, '');
+      inputMsg.style.border = '2px solid red';
+      inputMsg.value = textName; 
+    } else {
+      
+      inputMsg.style.border = '';
+    
+    }
+    });
+    inputName.addEventListener('input', () => {
+
+    let textName = inputName.value;
+    const patternName = /^[a-zA-Z0-9\s]+$/i;
+
+    if (patternName.test(textName)){
+      textName = textName.replace(patternName, '');
+      inputName.style.border = '2px solid red';
+      inputName.value = textName; 
+    } else {
+      
+      inputName.style.border = '';
+    
+    }
+    });
+
+  //разрешен ввод только цифр и +
+   formPhone.addEventListener('keydown', (e) => {
+    
+    if ( e.keyCode == 46 || e.keyCode == 8 || e.keyCode == 9 || e.keyCode == 27 ||
+      (e.keyCode >= 35 && e.keyCode <= 39)) {
+        
+      return;
+    } else {
+      if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 107 )) {
+        formPhone.style.border = 'solid red';
+        event.preventDefault();
+      } else {
+        formPhone.style.border = '';
+      }
+    } 
+
+   });
+   formFooterPhone.addEventListener('keydown', (e) => {
+    
+    if ( formFooterPhone == 46 || e.keyCode == 8 || e.keyCode == 9 || e.keyCode == 27 ||
+      (e.keyCode >= 35 && e.keyCode <= 39)) {
+        
+      return;
+    } else {
+      if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 107 )) {
+        formFooterPhone.style.border = 'solid red';
+        event.preventDefault();
+      } else {
+      formFooterPhone.style.border = '';
+      }
+    } 
+
+   });
+
+  const elemForm = [];
+  for( const elem of form.elements){
+    if (elem.tagName.toLowerCase() !== 'button' && 
+    elem.type !== 'button'){
+      elemForm.push(elem);
+    }
+    
+  }
+
+    const valid = (event) => {
+      // const patternPhone = /\+?[78]([-()]*\d){10}$/;
+      // const patternName = /^[а-яА-Я\s]+$/i;
+
       elemForm.forEach(elem => {
         if (!elem.value){
           elem.style.border = 'solid red';
           event.preventDefault();
         } else {
-          elem.style.border = '';
-        }
-        if (elem.id === 'form1-phone' && !patternPhone.test(elem.value)){
-          elem.style.border = 'solid red';
-          event.preventDefault();
-        }
-        if (elem.id === 'form1-name' && !patternName.test(elem.value)){
-          elem.style.border = 'solid red';
-          event.preventDefault();
-        }
-      });  
-      
-    });
-    formFooter.addEventListener('submit', (e) => {
-      e.preventDefault();
-      formFooter.appendChild(statusMessage);
-      preloader.style.display = 'block';
-      statusMessage.appendChild(preloader)
-      const formData = new FormData(formFooter);
-      let body = {};
+          form.appendChild(statusMessage);
+          preloader.style.display = 'block';
+          statusMessage.appendChild(preloader)
+          const formData = new FormData(form);
+    
+          let body = {};
 
-      formData.forEach((val, key) => {    
-        body[key] = val;
+          formData.forEach((val, key) => {    
+            body[key] = val;
+          });
+          postData(body, () => {
+            statusMessage.textContent = successMessage;
+          }, () => {
+            statusMessage.textContent = errorMessage;
+          });
+          elem.style.border = 'solid red';
+        }
+
       });
-      postData(body, () => {
-        statusMessage.textContent = successMessage;
-      }, () => {
-        statusMessage.textContent = errorMessage;
-      });
-      
-    });
+ 
+    }
+    form.addEventListener('submit', valid);
+
+    const elemFormFooter = [];
+    for( const el of formFooter.elements){
+    if (el.tagName.toLowerCase() !== 'button' && 
+    el.type !== 'button'){
+      elemFormFooter.push(el);
+    }
+  }
+
+    const validFormFooter = (event) => {
+      elemFormFooter.forEach( elem => {
+        if(!elem.value){
+          elem.style.border = 'solid red';
+          event.preventDefault();
+        } else {
+          elem.style.border = '';
+          
+          formFooter.appendChild(statusMessage);
+          preloader.style.display = 'block';
+          statusMessage.appendChild(preloader)
+          const formData = new FormData(formFooter);
+          let body = {};
+    
+          formData.forEach((val, key) => {    
+            body[key] = val;
+          });
+          postData(body, () => {
+            statusMessage.textContent = successMessage;
+          }, () => {
+            statusMessage.textContent = errorMessage;
+          });
+          
+        }
+
+       
+      })
+    }
+
+    formFooter.addEventListener('submit', validFormFooter);
+
     formPopup.addEventListener('submit', (e) => {
       e.preventDefault();
       formPopup.appendChild(statusMessage);
@@ -551,7 +653,8 @@ calc(100);
         }
         if (request.status === 200){
           outputData();
-          
+          setTimeout(() => {
+            statusMessage.style.display = 'none'}, 3000); 
         } else {
           errorData(request.status)
           
