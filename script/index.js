@@ -367,41 +367,59 @@ document.addEventListener('mouseout', changeImage);
     const countSum = () => {
 
       let total = 0;
-      const time = 5000;
-      const step = 20;
+      let time = 100;
+      let step = 200;
       let n = 0;
-      let t = Math.round( time / (total / step) );
+      
       let countValue = 1;
       let dayValue = 1;
       let typeValue = calcType.options[calcType.selectedIndex].value;
       let squareValue = +calcSquare.value;
-
+      // if(calcSquare.value && calcSquare.value >= 100 && calcSquare.value <= 999){
+      //   step = 500;
+      // } else if (calcSquare.value && calcSquare.value >= 1000 && calcSquare.value <= 9999){
+      //   step = 2000;  
+      // } else if (calcSquare.value && calcSquare.value >= 10000) {
+      //   step = 10000;  
+      // } else if (calcDay.value && calcDay.value == 0){
+      //   total = 0; 
+      // }
       if(calcCount.value > 1){
         countValue += (calcCount.value  - 1) / 10;
       }
 
-      if(calcDay.value && calcDay.value < 5){
+      if(calcDay.value && calcDay.value < 5 && calcDay.value > 1){
         dayValue *= 2
       } else if (calcDay.value && calcDay.value < 10){
         dayValue *= 1.5
+      } else if (calcDay.value && calcDay.value == 0){
+        dayValue = 0
       }
-
+      
       if(typeValue && squareValue){
 
-        let interval = setInterval(() => {
-          n = n + step;
-          if (n == total) {
-            clearInterval(interval)
-          }
-          totalValue.textContent = n;
-        }, t)
+        // let t = Math.floor( time / (total / step) );
+        // let interval = setInterval(() => {
+          
+        //   n = n + step;
+        //   if (n === total) {
+        //     clearInterval(interval)
+        //   }
+        //   totalValue.textContent = n;
+        // }, t)
+
         total = price * typeValue * squareValue * countValue * dayValue;
       }
-      
+    if(calcDay.value && calcDay.value == '') {
+      countValue = 1;
+      dayValue = 1;
+    }
+    if (calcDay.value && calcDay.value == 0 && calcCount.value == 0){
+      total = 0
+    } 
+
      totalValue.textContent = total;
 
-      
-      
     };
 
     calcBlock.addEventListener('change', (e) => {
@@ -421,11 +439,114 @@ document.addEventListener('mouseout', changeImage);
           countSum()
         }
     })
-
-    
-
+ 
   }
 calc(100);
+
+//отправка формы
+  const sendForm = () => {
+    const errorMessage = 'Что-то пошло не так!';
+    const loadMessage = 'Загрузка...';
+    const successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
+    const statusMessage = document.createElement('div');
+    const preloader = document.querySelector('.preloader');
+    const forms = document.querySelectorAll('form');
+    statusMessage.style.cssText = 'font-size: 20px; color: #fff;';
+    console.log(forms);
+
+    const onlyNumberInputs = document.querySelectorAll('input[type="tel"]');
+    const onlyTextInputs = document.querySelectorAll('input[type="text"]');
+
+    onlyNumberInputs.forEach((item) =>{
+      item.addEventListener('input', function(){
+        this.value = this.value.replace(/[^0-9\+]/, '');
+         
+    })
+  });
+  onlyTextInputs.forEach((item) =>{
+      item.addEventListener('input', function(){
+        this.value = this.value.replace(/[^А-я]/, '');
+         
+    })
+  });
+    
+    forms.forEach(function(item){
+      item.addEventListener('submit', send )
+    });
+
+    function send (event) {
+
+      event.preventDefault();
+      const formData = new FormData(this);
+      const _this = this;
+      let json = {};
+      let state = null;
+
+      _this.querySelectorAll('input').forEach((item) => {
+        
+        if(item.value === ''){
+         return state = false;
+          
+        } else {
+          return state = true;
+        }
+      })
+      
+      if(state){ 
+        
+        this.appendChild(statusMessage);
+        preloader.style.display = 'block';
+        statusMessage.appendChild(preloader)
+
+      formData.forEach((value, key) => {
+        json[key] = value;
+      })
+
+      postData(json, _this)
+       .then(() => {
+         statusMessage.textContent = successMessage;
+       })
+       .catch((error) => {
+        statusMessage.textContent = errorMessage;
+        console.log(error);
+       })
+      
+      }
+      
+    }
+
+    const postData = (body,  _this) => {
+      return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange' , () => {
+
+        if (request.readyState !== 4){
+          return
+        }
+        if (request.status === 200){
+          resolve();
+          setTimeout(() => {
+            statusMessage.style.display = 'none'}, 3000); 
+            _this.querySelectorAll('input').forEach(item => {
+              console.log(item);
+              item.value = ''
+            })
+        } else {
+          reject(request.status)
+          
+        }
+      });
+      
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'application/json');
+     
+      request.send(JSON.stringify(body))
+      })
+      
+    }
+  };
+
+  sendForm();
 
 });
 
