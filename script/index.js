@@ -482,13 +482,16 @@ calc(100);
       let json = {};
       let state = null;
 
-      _this.querySelectorAll('input').forEach((item) => {
+     _this.querySelectorAll('input').forEach((item) => {
         
         if(item.value === ''){
-         return state = false;
+          item.style.border = 'solid red'
+          return state = false;
           
         } else {
+          item.style.border = '';
           return state = true;
+          
         }
       })
       
