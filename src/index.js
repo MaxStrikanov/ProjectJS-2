@@ -2,10 +2,11 @@
 
 import "@babel/polyfill";
 import "nodelist-foreach-polyfill";
-import 'fetch-polyfill';
+import fetch from 'fetch-polyfill';
 import 'formdata-polyfill';
 import elementClosest from 'element-closest';
 elementClosest(window);
+fetch(window);
 
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
@@ -14,7 +15,7 @@ import tabs from './modules/tabs';
 import addDots from './modules/slider';
 import slider from './modules/slider';
 import changeImage from './modules/changeImage';
-import calcValid from './modules/calcValid';
+//import calcValid from './modules/calcValid';
 import calc from './modules/calc';
 import sendForm from './modules/sendForm';
 

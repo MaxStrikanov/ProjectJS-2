@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
     "element-closest": "^3.0.2",
+    "fetch-polyfill": "^0.8.2",
     "formdata-polyfill": "^3.0.20",
     "nodelist-foreach-polyfill": "^1.2.0"
   }

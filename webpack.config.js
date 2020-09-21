@@ -1,4 +1,4 @@
-const path = require('path');
+пconst path = require('path');
 
 module.exports = {
     entry: {
@@ -6,7 +6,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, './dist'),
-        filename: '[].js',
+        filename: 'bundle.js',
         publicPath: '/dist'
     },
     devServer: {

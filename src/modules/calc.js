@@ -24,7 +24,7 @@ const calcValid = () => {
     
   )};
 
-//calcValid();
+calcValid();
 
 //калькулятор
   const calc = (price = 100) => {
