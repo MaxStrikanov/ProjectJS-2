@@ -26,5 +26,5 @@ changeImage();
 calcValid(); 
 
 calc();
-
+//отправка
 sendForm();
