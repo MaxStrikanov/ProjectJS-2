@@ -1,23 +1,17 @@
-import { LoaderOptionsPlugin } from "webpack";
-
 const calcValid = () => {
-
-    const calcBlock = document.querySelectorAll('.calc-block input');
-    calcBlock.forEach((item) => {
-      item.addEventListener('input', function(){
-        let reg = /\D/g;
-        
-        if (reg.test(this.value)){
-            console.log(this.value); 
-          this.style.border = '1px solid red';
-          this.value  = this.value.replace(reg, '');; 
-
+  const calcBlock = document.querySelectorAll('.calc-block input');
+  calcBlock.forEach((item) => {
+    item.addEventListener('input', function(){
+      let reg = /\D/g;
+      if (reg.test(this.value)){
+        this.style.border = '1px solid red';
+        this.value = this.value.replace(reg, '');
       } else {
-          console.log(this.value);
-          this.style.border = '';
+        this.style.border = '';
       }
-    })
-    })
+    });
+  });
+
 }
 
 
@@ -108,5 +102,6 @@ const calcValid = () => {
     })
  
   }
+  calc(100);
 
-export {calc, calcValid};
+export {calc, calcValid}

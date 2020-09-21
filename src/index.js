@@ -9,9 +9,9 @@ import changeImage from './modules/changeImage';
 import {calc, calcValid} from './modules/calc';
 import sendForm from './modules/sendForm';
 
-countTimer('31 September 2020');
+countTimer('31 September 2020')
 
-toggleMenu(); 
+toggleMenu();
 
 togglePopup();
 
@@ -19,12 +19,12 @@ tabs();
 
 addDots();
 
-slider(); 
+slider();
 
 changeImage();
 
-calcValid(); 
+calcValid();
 
 calc();
-//отправка
+
 sendForm();
