@@ -4,8 +4,6 @@ const countTimer = (deadline) => {
     let timerMinutes = document.getElementById( 'timer-minutes' );
     let timerSeconds = document.getElementById( 'timer-seconds' );
 
-   
-
     const getTimeRemaining = () => {
 
       let dateStop = new Date(deadline).getTime();

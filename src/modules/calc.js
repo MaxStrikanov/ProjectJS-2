@@ -1,30 +1,25 @@
+import { LoaderOptionsPlugin } from "webpack";
+
 const calcValid = () => {
 
-    const calcBlock = document.querySelector('.calc-block');
-
-    calcBlock.addEventListener('input', (e) => {
-
-      let target = e.target;
-      let calcInput = target.closest('.calc-item [type=text]');
-      let text = calcInput.value;
-      let reg = /\D/g;
-
-      if (reg.test(text)){
-
-        calcInput.style.border = '1px solid red';
-        text = text.replace(reg, '');
-        calcInput.value = text; 
+    const calcBlock = document.querySelectorAll('.calc-block input');
+    calcBlock.forEach((item) => {
+      item.addEventListener('input', function(){
+        let reg = /\D/g;
+        
+        if (reg.test(this.value)){
+            console.log(this.value); 
+          this.style.border = '1px solid red';
+          this.value  = this.value.replace(reg, '');; 
 
       } else {
-
-        calcInput.style.border = '';
-
+          console.log(this.value);
+          this.style.border = '';
       }
-    }
-    
-  )};
+    })
+    })
+}
 
-calcValid();
 
 //калькулятор
   const calc = (price = 100) => {
@@ -113,6 +108,5 @@ calcValid();
     })
  
   }
-  calc(100);
 
-export default calc;
+export {calc, calcValid};

@@ -62,16 +62,7 @@ const slider = () => {
          stopSlide();
        }
     })
- 
-    slider.addEventListener('mouseout', (e) => {
-     if(e.target.matches('.portfolio-btn') || 
-     e.target.matches('.dot')){
-       startSlide();
-     }
-   });
-   
-     startSlide();
- 
+
     slider.addEventListener('click', (e) => {
       e.preventDefault();
  
@@ -109,7 +100,16 @@ const slider = () => {
       nextSlide(dot, currentSlider, 'dot-active');
  
     });
+    slider.addEventListener('mouseout', (e) => {
+     if(e.target.matches('.portfolio-btn') || 
+     e.target.matches('.dot')){
+       startSlide();
+     }
+   });
+   
+    startSlide(1500);  
  
 };
- 
-export default slider;
+
+
+export {slider, addDots};
