@@ -55,9 +55,7 @@ const countTimer = (deadline) => {
 
    updateClock();
 
-  }
-
-  countTimer('31 September 2020');
+}
 
 export default countTimer;
 

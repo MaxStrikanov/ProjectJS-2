@@ -6,10 +6,10 @@ const sendForm = () => {
     const preloader = document.querySelector('.preloader');
     const forms = document.querySelectorAll('form');
     statusMessage.style.cssText = 'font-size: 20px; color: #fff;';
-    console.log(forms);
 
     const onlyNumberInputs = document.querySelectorAll('input[type="tel"]');
     const onlyTextInputs = document.querySelectorAll('input[type="text"]');
+    const inputMsg = document.querySelector('.mess');
 
     onlyNumberInputs.forEach((item) =>{
       item.addEventListener('input', function(){
@@ -23,6 +23,9 @@ const sendForm = () => {
          
     })
   });
+  inputMsg.addEventListener('input', () => {
+    inputMsg.value = inputMsg.value.replace(/[^А-я\s]/, '');
+  })
     
     forms.forEach(function(item){
       item.addEventListener('submit', send )

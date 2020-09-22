@@ -1,13 +1,20 @@
 const calcValid = () => {
-  const calcBlock = document.querySelectorAll('.calc-block input');
+  const calcBlock = document.querySelectorAll('.calc-item[type=text]');
+  
   calcBlock.forEach((item) => {
     item.addEventListener('input', function(){
-      let reg = /\D/g;
-      if (reg.test(this.value)){
+      
+      let reg = /[^0-9]/;
+      let text = this.value;
+      
+      if (reg.test(text)){
         this.style.border = '1px solid red';
-        this.value = this.value.replace(reg, '');
+        text = text.replace(reg, '');
+         this.value = text;
       } else {
         this.style.border = '';
+        console.log(123);
+        this.value = text
       }
     });
   });
